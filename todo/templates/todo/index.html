@@ -1,41 +1,11 @@
-<!doctype html>
-<html lang="de">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/global.css">
-    <title>TODO-Tracker</title>
-</head>
-<body class="bg-light">
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <span class="navbar-brand unselectable">TODO-Tracker</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Übersicht<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/impressum.html">Impressum</a>
-                </li>
-
-            </ul>
-        </div>
-    </nav>
-</header>
+{% block main %}
 <main class="mt-3">
     <div class="container">
         <div class="d-inline-flex">
             <h2 class="mr-3 mb-3">Übersicht</h2>
-            <a href="pages/create-todo.html" class="btn btn-custom-primary mb-3">neue TODO</a>
+            <a href="{% url 'todo:create-todo' %}" class="btn btn-custom-primary mb-3">neue TODO</a>
         </div>
 
         <table class="table">
@@ -49,69 +19,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Stochastik HA</td>
-                <td>26.04.19</td>
+            {% for task in task_list %}
+                <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ task.task_text }}</td>
+                <td>{{ task.deadline|date:"d.m.Y"}}</td>
                 <td>
                     <div class="progress mt-1">
                         <div class="progress-bar" role="progressbar" aria-valuenow="100"
-                             aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                            100%
+                             aria-valuemin="0" aria-valuemax="100" style="width:{{ task.progress }}%">
+                            {{ task.progress }}%
                         </div>
                     </div>
                 </td>
                 <td>
-                    <a href="pages/edit-todo.html" class="btn btn-sm btn-custom-primary">Bearbeiten</a>
+                    <a href="{% url 'todo:edit-todo' %}" class="btn btn-sm btn-custom-primary">Bearbeiten</a>
                     <button type="button" class="btn btn-sm btn-danger">Löschen</button>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Geschenk fuer Max</td>
-                <td>03.05.19</td>
-                <td>
-                    <div class="progress mt-1">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="100"
-                             aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                            0%
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <a href="pages/edit-todo.html" class="btn btn-sm btn-custom-primary">Bearbeiten</a>
-                    <button type="button" class="btn btn-sm btn-danger">Löschen</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Englisch Kurs</td>
-                <td>31.07.19</td>
-                <td>
-                    <div class="progress mt-1">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="100"
-                             aria-valuemin="0" aria-valuemax="100" style="width:45%">
-                            45%
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <a href="pages/edit-todo.html" class="btn btn-sm btn-custom-primary">Bearbeiten</a>
-                    <button type="button" class="btn btn-sm btn-danger">Löschen</button>
-                </td>
-            </tr>
+            {% endfor %}
             </tbody>
         </table>
 
     </div>
 </main>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-</body>
-</html>
+{% endblock %}
