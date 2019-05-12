@@ -29,7 +29,7 @@ def create_todo(request):
             task.save()
             return HttpResponseRedirect(reverse('todo:index'))
         else:
-            form = TodoForm()
+            # form = TodoForm()
             return render(request, 'todo/create-todo.html', {'form': form})
     else:
 

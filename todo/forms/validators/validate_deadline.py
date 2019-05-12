@@ -6,7 +6,7 @@ def validate_deadline(value):
     if value < date.today():
         raise ValidationError(
             '%(date)s is too early',
-            params={'value': value},
+            params={'date': value},
         )
     else:
         return value

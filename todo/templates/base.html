@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'todo/css/global.css' %}">
     <title>TODO-Tracker</title>
 </head>
-<body class="bg-light">
+<body class="bg-light" id="{{ request.resolver_match.url_name }}">
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <span class="navbar-brand unselectable">TODO-Tracker</span>
