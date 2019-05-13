@@ -15,7 +15,7 @@ def index(request):
 
 
 def about(request):
-    return HttpResponse("Here must be your impressum view")
+    return render(request, 'todo/impressum.html')
 
 
 def create_todo(request):
