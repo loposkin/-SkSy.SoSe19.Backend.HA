@@ -33,8 +33,8 @@
                     </div>
                 </td>
                 <td>
-                    <a href="{% url 'todo:edit-todo' %}" class="btn btn-sm btn-custom-primary">Bearbeiten</a>
-                    <button type="button" class="btn btn-sm btn-danger">Löschen</button>
+                    <a href="{% url 'todo:edit-todo' task.id %}" class="btn btn-sm btn-custom-primary">Bearbeiten</a>
+                    <a href="{% url 'todo:delete-todo' task.id %}" onclick="return confirm('Möchten Sie wirklich die Aufgabe löschen?');" class="btn btn-sm btn-danger">Löschen</a>
                 </td>
             </tr>
             {% endfor %}

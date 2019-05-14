@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .forms.TodoForm import TodoForm
@@ -36,5 +36,24 @@ def create_todo(request):
         return render(request, 'todo/create-todo.html')
 
 
-def edit_todo(request):
-    return HttpResponse("Here must be you edit-todo view")
+def edit_todo(request, todo_id):
+    task = get_object_or_404(Task, pk=todo_id)
+    if request.method == "POST":
+        form = TodoForm(request.POST)
+        if form.is_valid():
+            task.deadline = form.cleaned_data['date']
+            task.task_text = form.cleaned_data['text']
+            task.progress = form.cleaned_data['percent']
+            task.save()
+            return HttpResponseRedirect(reverse('todo:index'))
+        else:
+            # form = TodoForm()
+            return render(request, 'todo/edit-todo.html', {'form': form})
+    form = TodoForm(initial={'text': task.task_text, 'percent': task.progress, 'date': task.deadline})
+    return render(request, 'todo/edit-todo.html', {'form': form})
+
+
+def delete_todo(request, todo_id):
+    task = get_object_or_404(Task, pk=todo_id)
+    task.delete()
+    return HttpResponseRedirect(reverse('todo:index'))
