@@ -14,7 +14,7 @@
             <div class="form-row">
                 <div class="form-group col-md-5 fieldWrapper">
                     <label for="datePicker">Deadline:</label>
-                    <input type="date" class="form-control-lg form-control {% if form.date.errors %}is-invalid{%  endif %}" id="datePicker" name="date"  >
+                    <input type="date" class="form-control-lg form-control {% if form.date.errors %}is-invalid{%  endif %}" id="datePicker" name="date" {% if form.date.value %}value="{{ form.date.value | date:"Y-m-d" }}"{% endif %} >
                     {% if form.date.errors %}<div class="invalid-feedback">Geben Sie ein gültiges Datum ein</div>{%  endif %}
 
                 </div>
@@ -28,7 +28,7 @@
                             </div>
                         </div>
 
-                    <input type="range" class="custom-range {% if form.percent.errors %}is-invalid{%  endif %}" min="0" max="100" step="0.5" id="percentReady" {% if form.percent.value %}value="{{ form.percent.value }}"{% else %}50{% endif %} aria-label="rangeValue" aria-describedby="rangeValue">
+                    <input type="range" class="custom-range {% if form.percent.errors %}is-invalid{%  endif %}" min="0" max="100" step="0.5" id="percentReady" {% if form.percent.value %}value="{{ form.percent.value }}" {% else %} value="50" {% endif %} aria-label="rangeValue" aria-describedby="rangeValue">
                     {% if form.percent.errors %}<div class="invalid-feedback">Geben Sie ein gültigen Range ein</div>{%  endif %}
 
                 </div>

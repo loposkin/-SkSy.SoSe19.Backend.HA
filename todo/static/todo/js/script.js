@@ -1,6 +1,6 @@
 try {
     datePicker = document.getElementById('datePicker');
-    if(!datePicker.valueAsDate) {
+    if(!datePicker.value) {
         datePicker.valueAsDate = new Date();
     }
 } catch (e) {
