@@ -54,6 +54,4 @@ def edit_todo(request, todo_id):
 
 
 def delete_todo(request, todo_id):
-    task = get_object_or_404(Task, pk=todo_id)
-    task.delete()
-    return HttpResponseRedirect(reverse('todo:index'))
+    return render(request, 'todo/index.html', context)
